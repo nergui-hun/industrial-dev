@@ -7,15 +7,16 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 class ProfileHeaderView: UIView {
 
     //================================VIEW ELEMENTS===============================//
     /*
-     1. private let statusLabel: UILabel
+     1. private let statusLabel: UILabel    V
      2. private let statusTextField: UITextField
-     3. private let avatarImageView: UIImageView
-     4. private let fullNameLabel: UILabel
+     3. private let avatarImageView: UIImageView    !!!!!!!!!resize
+     4. private let fullNameLabel: UILabel  V
      5. private lazy var setStatusButton: UIButton
      6. lazy var alphaView: UIView
      7. private let closeButton: UIButton
@@ -26,7 +27,6 @@ class ProfileHeaderView: UIView {
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = .gray
         label.text = "Waiting for something..."
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -40,7 +40,6 @@ class ProfileHeaderView: UIView {
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.black.cgColor
         textField.isHidden = true
-        textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
 
@@ -52,7 +51,6 @@ class ProfileHeaderView: UIView {
         imageView.layer.cornerRadius = avatarImageViewSize / 2
         imageView.contentMode = UIView.ContentMode.scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
@@ -62,7 +60,6 @@ class ProfileHeaderView: UIView {
         label.textColor = .black
         label.text = "Bald Cat"
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -76,7 +73,6 @@ class ProfileHeaderView: UIView {
         button.layer.shadowOpacity = 0.7
         button.tintColor = .white
         button.setTitle("Show status", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         return button
     }()
@@ -99,7 +95,6 @@ class ProfileHeaderView: UIView {
         button.addTarget(ProfileHeaderView.self, action: #selector(zoomOutUserPhoto), for: .touchUpInside)
         button.isHidden = true
         button.alpha = 0
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
 
@@ -112,26 +107,14 @@ class ProfileHeaderView: UIView {
     }()
 
     //============================CONSTRAINTS=================================//
-    private var statusButtonTopConstraint: NSLayoutConstraint?
-    private var avatarImageViewLeftConstraint: NSLayoutConstraint?
-    private var avatarImageViewTopConstraint: NSLayoutConstraint?
-    private var avatarImageViewHeightConstraint: NSLayoutConstraint?
-    private var avatarImageViewWidthConstraint: NSLayoutConstraint?
-
-
-    private var enlargedAvatarImageViewLeftConstraint: NSLayoutConstraint?
-    private var enlargedAvatarImageViewTopConstraint: NSLayoutConstraint?
-    private var enlargedAvatarImageViewHeightConstraint: NSLayoutConstraint?
-    private var enlargedAvatarImageViewWidthConstraint: NSLayoutConstraint?
-
-
+    private var statusButtonTopConstraint: Constraint? = nil
     let avatarImageViewSize: CGFloat = 130
-
+    let spacing: CGFloat = 16
 
     //===========================INITIALIZERS=================================//
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubviews()
+        addElements()
         setConstraints()
     }
 
@@ -143,7 +126,7 @@ class ProfileHeaderView: UIView {
     //==========================METHODS==================================//
     /*
      1. private func setConstraints()
-     2. private func addSubviews()
+     2. private func addElements()
      3. @objc func buttonPressed(_ sender: UIButton!)
      4. func zoomInUserPhoto()
      5. @objc func zoomOutUserPhoto(vc: UIViewController)
@@ -152,47 +135,39 @@ class ProfileHeaderView: UIView {
      8. @objc func cancelEditing()
      */
     private func setConstraints() {
-
-        let spacing: CGFloat = 16
-        avatarImageViewLeftConstraint = avatarImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: spacing)
-        avatarImageViewTopConstraint = avatarImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: spacing)
-        avatarImageViewHeightConstraint = avatarImageView.heightAnchor.constraint(equalToConstant: avatarImageViewSize)
-        avatarImageViewWidthConstraint = avatarImageView.widthAnchor.constraint(equalToConstant: avatarImageViewSize)
-
-        self.statusButtonTopConstraint = self.setStatusButton.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 20)
-        self.statusButtonTopConstraint?.priority = UILayoutPriority(998)
-
         let labelsLeftSpace = spacing + avatarImageViewSize
 
-        NSLayoutConstraint.activate([
-            avatarImageViewLeftConstraint,
-            avatarImageViewTopConstraint,
-            avatarImageViewHeightConstraint,
-            avatarImageViewWidthConstraint,
+        avatarImageView.snp.makeConstraints { make in
+            make.left.top.equalToSuperview().offset(spacing)
+            make.size.equalTo(avatarImageViewSize)
+        }
 
-            fullNameLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: labelsLeftSpace),
-            fullNameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 27),
-            fullNameLabel.heightAnchor.constraint(equalToConstant: 30),
-            fullNameLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -spacing),
+        fullNameLabel.snp.makeConstraints{ make in
+            make.left.equalToSuperview().offset(labelsLeftSpace)
+            make.right.equalToSuperview().offset(-spacing)
+            make.top.equalToSuperview().offset(27)
+            make.height.equalTo(30)
+        }
 
-            setStatusButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: spacing),
-            self.statusButtonTopConstraint,
-            setStatusButton.heightAnchor.constraint(equalToConstant: 50),
-            setStatusButton.rightAnchor.constraint(equalTo: fullNameLabel.rightAnchor),
+        statusLabel.snp.makeConstraints{ make in
+            make.left.right.height.equalTo(fullNameLabel)
+            make.top.equalTo(fullNameLabel).offset(82)
+        }
 
-            statusLabel.leftAnchor.constraint(equalTo: fullNameLabel.leftAnchor),
-            statusLabel.rightAnchor.constraint(equalTo: fullNameLabel.rightAnchor),
-            statusLabel.bottomAnchor.constraint(equalTo: fullNameLabel.bottomAnchor, constant: 82),
-            statusLabel.heightAnchor.constraint(equalToConstant: 30),
+        statusTextField.snp.makeConstraints{ make in
+            make.left.right.height.equalTo(fullNameLabel)
+            make.top.equalTo(statusLabel.snp.bottom).offset(5)
+        }
 
-            statusTextField.leftAnchor.constraint(equalTo: fullNameLabel.leftAnchor),
-            statusTextField.rightAnchor.constraint(equalTo: fullNameLabel.rightAnchor),
-            statusTextField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 4),
-            statusTextField.heightAnchor.constraint(equalToConstant: 30)
-        ].compactMap({ $0 }))
+        setStatusButton.snp.makeConstraints{ make in
+            make.left.equalToSuperview().offset(spacing)
+            self.statusButtonTopConstraint = make.top.equalTo(statusLabel.snp.bottom).offset(20).constraint
+            make.height.equalTo(50)
+            make.right.equalTo(fullNameLabel)
+        }
     }
 
-    private func addSubviews() {
+    private func addElements() {
         self.addSubview(statusLabel)
         self.addSubview(statusTextField)
         self.addSubview(fullNameLabel)
@@ -210,11 +185,9 @@ class ProfileHeaderView: UIView {
         if(statusButtonTitle == "Show status") {
 
             sender.setTitle("Set status", for: .normal)
-            self.statusButtonTopConstraint?.isActive = false
-            self.statusButtonTopConstraint = self.setStatusButton.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant:  40)
-            NSLayoutConstraint.activate([self.statusButtonTopConstraint].compactMap({ $0 }))
             self.statusTextField.isHidden = false
             statusTextField.text = statusLabel.text
+            self.statusButtonTopConstraint?.update(offset: 40)
             statusTextField.becomeFirstResponder()
 
         } else {
@@ -222,48 +195,32 @@ class ProfileHeaderView: UIView {
             sender.setTitle("Show status", for: .normal)
             self.endEditing(true)
             self.setStatusButton.setTitle("Show status", for: .normal)
-            self.statusButtonTopConstraint?.isActive = true
-            self.statusButtonTopConstraint = self.setStatusButton.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant:  20)
-            NSLayoutConstraint.activate([self.statusButtonTopConstraint].compactMap({ $0 }))
+            statusButtonTopConstraint?.update(offset: 20)
             statusTextField.isHidden = true
         }
     }
 
     func setAlphaViewConstraints(vc: UIViewController) {
-        NSLayoutConstraint.activate([
-            alphaView.topAnchor.constraint(equalTo: vc.view.safeAreaLayoutGuide.topAnchor),
-            alphaView.leftAnchor.constraint(equalTo: vc.view.safeAreaLayoutGuide.leftAnchor),
-            alphaView.rightAnchor.constraint(equalTo: vc.view.safeAreaLayoutGuide.rightAnchor),
-            alphaView.bottomAnchor.constraint(equalTo: vc.view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+        alphaView.snp.makeConstraints{ make in
+            make.left.right.equalTo(vc.view)
+            make.top.equalTo(vc.view.snp.topMargin)
+            make.bottom.equalTo(vc.view.snp.bottomMargin)
+        }
     }
 
     func zoomInUserPhoto(vc: UIViewController) {
         let avatarImageViewSize = UIScreen.main.bounds.width > UIScreen.main.bounds.width ?
         UIScreen.main.bounds.height : UIScreen.main.bounds.width
 
-        avatarImageViewLeftConstraint?.isActive = false
-        avatarImageViewTopConstraint?.isActive = false
-        avatarImageViewHeightConstraint?.isActive = false
-        avatarImageViewWidthConstraint?.isActive = false
+        avatarImageView.snp.remakeConstraints{ make in
+            make.center.equalTo(vc.view.snp.center)
+            make.size.equalTo(avatarImageViewSize)
+        }
 
-        enlargedAvatarImageViewLeftConstraint = avatarImageView.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor)
-        enlargedAvatarImageViewTopConstraint = avatarImageView.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor)
-        enlargedAvatarImageViewHeightConstraint = avatarImageView.heightAnchor.constraint(equalToConstant: avatarImageViewSize)
-        enlargedAvatarImageViewWidthConstraint = avatarImageView.widthAnchor.constraint(equalToConstant: avatarImageViewSize)
-
-
-        NSLayoutConstraint.activate([
-            enlargedAvatarImageViewLeftConstraint,
-            enlargedAvatarImageViewTopConstraint,
-            enlargedAvatarImageViewHeightConstraint,
-            enlargedAvatarImageViewWidthConstraint,
-
-            closePhotoButton.rightAnchor.constraint(equalTo: avatarImageView.rightAnchor),
-            closePhotoButton.topAnchor.constraint(equalTo: avatarImageView.topAnchor),
-            closePhotoButton.widthAnchor.constraint(equalToConstant: 50),
-            closePhotoButton.heightAnchor.constraint(equalToConstant: 50)
-        ].compactMap({ $0 }))
+        closePhotoButton.snp.makeConstraints{ make in
+            make.right.top.equalTo(avatarImageView)
+            make.height.width.equalTo(50)
+        }
 
         alphaView.alpha = 0.8
         avatarImageView.layer.cornerRadius = 0
@@ -271,20 +228,14 @@ class ProfileHeaderView: UIView {
 
     @objc func zoomOutUserPhoto(vc: UIViewController) {
 
+        avatarImageView.snp.remakeConstraints{ make in
+            make.left.top.equalToSuperview().offset(spacing)
+            make.size.equalTo(avatarImageViewSize)
+        }
+
         alphaView.alpha = 0
         avatarImageView.layer.cornerRadius = avatarImageViewSize / 2
         closePhotoButton.isHidden = true
-
-        enlargedAvatarImageViewLeftConstraint?.isActive = false
-        enlargedAvatarImageViewTopConstraint?.isActive = false
-        enlargedAvatarImageViewHeightConstraint?.isActive = false
-        enlargedAvatarImageViewWidthConstraint?.isActive  = false
-
-
-        avatarImageViewLeftConstraint?.isActive = true
-        avatarImageViewTopConstraint?.isActive = true
-        avatarImageViewHeightConstraint?.isActive = true
-        avatarImageViewWidthConstraint?.isActive = true
     }
 
     @objc func showClosePhotoButton() {

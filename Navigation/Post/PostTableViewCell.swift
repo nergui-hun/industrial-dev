@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import StorageService
+import iOSIntPackage
 
 class PostTableViewCell: UITableViewCell {
 
@@ -86,6 +87,25 @@ class PostTableViewCell: UITableViewCell {
         self.descriptionLabel.text = post.description
         self.likesLabel.text = "Likes: \(post.likes)"
         self.viewsLabel.text = "Views: \(post.views)"
+
+        let random = Int.random(in: 1...4)
+        let filter: ColorFilter?
+
+        switch random {
+        case 1: filter = .fade
+        case 2: filter = .colorInvert
+        case 3: filter = .noir
+        case 4: filter = .chrome
+        default: filter = nil
+        }
+
+        let imageProcessor = ImageProcessor()
+        guard let filter = filter else { return }
+        guard let image = postImageView.image else { return }
+        
+        imageProcessor.processImage(sourceImage: image, filter: filter, completion: { filteredImage in
+            postImageView.image = filteredImage
+        })
     }
 
     private func addSubviews() {

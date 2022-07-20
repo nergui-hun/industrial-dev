@@ -7,6 +7,7 @@
 
 import UIKit
 import StorageService
+import SnapKit
 
 class ProfileViewController: UIViewController {
 
@@ -59,10 +60,13 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         title = "Profile"
         self.navigationController?.navigationBar.isHidden = true
-
+/*
         #if DEBUG
         tableView.backgroundColor = .cyan
+        #else
+        tableView.backgroundColor = .white
         #endif
+ */
 
         configureTableView()
         dataSource = fetchData()
@@ -74,6 +78,7 @@ class ProfileViewController: UIViewController {
 
     private func configureTableView() {
         view.addSubview(tableView)
+        
         setConstraints()
         self.tableView.tableHeaderView?.layoutIfNeeded()
 
@@ -110,8 +115,7 @@ class ProfileViewController: UIViewController {
             })})
     }
 
-    @objc private func zoomOutProfileImage(closePhotoButtonTap: UITapGestureRecognizer) {
-        UIView.animate(withDuration: 0.3, animations: {
+    @objc private func zoomOutProfileImage(closePhotoButtonTap: UITapGestureRecognizer) {        UIView.animate(withDuration: 0.3, animations: {
             self.profileHeaderView.hideClosePhotoButton()
             self.profileHeaderView.layoutIfNeeded()
         }, completion: {_ in UIView.animate(withDuration: 0.5, animations: {
