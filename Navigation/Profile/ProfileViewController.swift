@@ -7,20 +7,20 @@
 
 import UIKit
 import StorageService
+import SnapKit
 
 class ProfileViewController: UIViewController {
 
-    //===================PROPERTIES=====================//
-    /*
-     1. var dataSource: [Post]
-     2. let profileHeaderView: ProfileHeaderView
-     3. private lazy var tableView: UITableView
-     */
+    // MARK: - Variables
+
     var dataSource: [Post] = []
+    var userService: UserService
+    var login: String?
+
+    // MARK: - View Elements
 
     let profileHeaderView: ProfileHeaderView = {
         let phView = ProfileHeaderView()
-        phView.translatesAutoresizingMaskIntoConstraints = false
         phView.avatarImageView.isUserInteractionEnabled = true
         return phView
     }()
@@ -33,36 +33,34 @@ class ProfileViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defaultCell")
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "photoCell")
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "postCell")
+        tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileHeaderView.identifier)
         
         tableView.sectionFooterHeight = 0
         tableView.estimatedRowHeight = UITableView.automaticDimension
-        tableView.tableHeaderView = profileHeaderView
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
 
 
+    // MARK: - Initializers
+    init(userService: UserService, login: String) {
+        self.userService = userService
+        self.login = login
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
 
+    // MARK: - Methods
 
-    //==========================METHODS=========================//
-    /*
-     1. override func viewDidLoad()
-     2. override func viewDidAppear(_ animated: Bool)
-     3. private func configureTableView()
-     4. private func setConstraints()
-     5. private func zoomInUserImage()
-     6. @objc private func zoomOutProfileImage(closePhotoButtonTap: UITapGestureRecognizer)
-     */
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Profile"
         self.navigationController?.navigationBar.isHidden = true
-
-        #if DEBUG
-        tableView.backgroundColor = .cyan
-        #endif
 
         configureTableView()
         dataSource = fetchData()
@@ -74,6 +72,7 @@ class ProfileViewController: UIViewController {
 
     private func configureTableView() {
         view.addSubview(tableView)
+        
         setConstraints()
         self.tableView.tableHeaderView?.layoutIfNeeded()
 
@@ -90,11 +89,6 @@ class ProfileViewController: UIViewController {
 
     func setConstraints() {
         tableView.pin(to: self.view)
-
-        NSLayoutConstraint.activate([
-            profileHeaderView.widthAnchor.constraint(equalTo: self.tableView.widthAnchor),
-            profileHeaderView.heightAnchor.constraint(equalToConstant: 250)
-        ])
     }
 
     @objc private func zoomInProfileImage(profileImageViewTap: UITapGestureRecognizer) {
@@ -110,8 +104,7 @@ class ProfileViewController: UIViewController {
             })})
     }
 
-    @objc private func zoomOutProfileImage(closePhotoButtonTap: UITapGestureRecognizer) {
-        UIView.animate(withDuration: 0.3, animations: {
+    @objc private func zoomOutProfileImage(closePhotoButtonTap: UITapGestureRecognizer) {        UIView.animate(withDuration: 0.3, animations: {
             self.profileHeaderView.hideClosePhotoButton()
             self.profileHeaderView.layoutIfNeeded()
         }, completion: {_ in UIView.animate(withDuration: 0.5, animations: {
@@ -123,7 +116,8 @@ class ProfileViewController: UIViewController {
 
 
 
-//================================EXTENSIONS==================================//
+// MARK: - Extensions
+
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource, PhotosTableViewCellDelegate {
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -164,10 +158,35 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource, Pho
         }
     }
 
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: ProfileHeaderView.self)) as? ProfileHeaderView else {
+                return nil
+            }
+
+            if let currentUser = userService.showUserInfo(login: login!) {
+            headerView.fullNameLabel.text = currentUser.fullName
+            headerView.avatarImageView.image = currentUser.avatar
+            headerView.statusLabel.text = currentUser.status
+            }
+            return headerView
+        } else {
+            return nil
+        }
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 250
+        } else {
+            return 0
+        }
+    }
 
     @objc func hideKeyboard() {
         view.endEditing(true)

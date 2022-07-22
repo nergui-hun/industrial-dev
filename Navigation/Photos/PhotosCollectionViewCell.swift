@@ -10,7 +10,8 @@ import UIKit
 
 class PhotosCollectionViewCell: UICollectionViewCell {
 
-    //==========================PROPERTIES=================================//
+    // MARK: - View Elements
+
     let photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
@@ -31,12 +32,8 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    //===========================METHODS=================================//
-    /*
-     1. private func setConstraints()
-     2. override func prepareForReuse()
-     3. func setup(with image: String)
-     */
+    // MARK: - Methods
+
     private func setConstraints() {
         photoImageView.pin(to: self.contentView)
     }
