@@ -22,6 +22,7 @@ class FeedViewController: UIViewController {
         view.layer.borderWidth = 0.5
         self.navigationController?.navigationBar.isHidden = true
 
+        // MARK: - View Elements
 
         let postButton: UIButton = {
             let button = UIButton()

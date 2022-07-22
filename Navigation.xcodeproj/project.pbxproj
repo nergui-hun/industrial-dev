@@ -29,6 +29,7 @@
 		8DB2A66127E71CB1008D4B7C /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB2A66027E71CB1008D4B7C /* FeedViewController.swift */; };
 		8DB2A66327E745A7008D4B7C /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB2A66227E745A7008D4B7C /* PostViewController.swift */; };
 		8DBE084028227F210005B573 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBE083F28227F210005B573 /* UIView+Ext.swift */; };
+		8DE0AFD1288B166300F3D82A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE0AFD0288B166300F3D82A /* User.swift */; };
 		8DEA4F46287DA32400ECB7BA /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2C4A65281B84CD00E5C8A5 /* Post.swift */; };
 		8DEA4F4D287DAA6800ECB7BA /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8B52DE2871646C000ECFB2 /* StorageService.framework */; };
 		8DEA4F4E287DAA6800ECB7BA /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8B52DE2871646C000ECFB2 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -97,6 +98,7 @@
 		8DB2A66027E71CB1008D4B7C /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		8DB2A66227E745A7008D4B7C /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		8DBE083F28227F210005B573 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		8DE0AFD0288B166300F3D82A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8DECB67127EBBA1B0053D6DF /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		8DECB67327EBBAB90053D6DF /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		9965CB838CEA317FCB3B7CDB /* Pods_Navigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -225,6 +227,7 @@
 		8DB2A64B27E68DAD008D4B7C /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				8DE0AFCF288B164B00F3D82A /* User */,
 				8D2C4A64281B84BC00E5C8A5 /* Post */,
 				8D35FD6B2823E4A30016BE52 /* Photos */,
 				8D9B923527F9583300D30526 /* Profile */,
@@ -239,6 +242,14 @@
 				8DBE083F28227F210005B573 /* UIView+Ext.swift */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		8DE0AFCF288B164B00F3D82A /* User */ = {
+			isa = PBXGroup;
+			children = (
+				8DE0AFD0288B166300F3D82A /* User.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		DA7D476DF372278DA8040875 /* Frameworks */ = {
@@ -513,6 +524,7 @@
 				8DB2A64D27E68DAD008D4B7C /* AppDelegate.swift in Sources */,
 				8DECB67427EBBAB90053D6DF /* InfoViewController.swift in Sources */,
 				8DB2A66127E71CB1008D4B7C /* FeedViewController.swift in Sources */,
+				8DE0AFD1288B166300F3D82A /* User.swift in Sources */,
 				8DB2A64F27E68DAD008D4B7C /* SceneDelegate.swift in Sources */,
 				8DB2A66327E745A7008D4B7C /* PostViewController.swift in Sources */,
 				8D35FD6D2823E4B50016BE52 /* PhotosTableViewCell.swift in Sources */,

@@ -8,19 +8,11 @@
 import Foundation
 import UIKit
 import StorageService
-import iOSIntPackage
 
 class PostTableViewCell: UITableViewCell {
 
+    // MARK: - View Elements
 
-    //==========================PROPERTIES=================================//
-    /*
-     1. private let authorLabel: UILabel
-     2. private let postImageView: UIImageView
-     3. private let descriptionLabel: UILabel
-     4. private let likesLabel: UILabel
-     5. private let viewsLabel: UILabel
-     */
     private let authorLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -65,7 +57,8 @@ class PostTableViewCell: UITableViewCell {
     }()
 
 
-    //===========================INITIALIZERS=================================//
+    // MARK: - Initializers
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubviews()
@@ -76,36 +69,14 @@ class PostTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    //===========================METHODS=================================//
-    /*1. func set(post: Post)
-      2. private func addSubviews()
-      3. private func setConstraints()
-     */
+    // MARK: - Methods
+    
     func set(post: Post) {
         self.authorLabel.text = post.author
         self.postImageView.image = UIImage(named: post.image)
         self.descriptionLabel.text = post.description
         self.likesLabel.text = "Likes: \(post.likes)"
         self.viewsLabel.text = "Views: \(post.views)"
-
-        let random = Int.random(in: 1...4)
-        let filter: ColorFilter?
-
-        switch random {
-        case 1: filter = .fade
-        case 2: filter = .colorInvert
-        case 3: filter = .noir
-        case 4: filter = .chrome
-        default: filter = nil
-        }
-
-        let imageProcessor = ImageProcessor()
-        guard let filter = filter else { return }
-        guard let image = postImageView.image else { return }
-        
-        imageProcessor.processImage(sourceImage: image, filter: filter, completion: { filteredImage in
-            postImageView.image = filteredImage
-        })
     }
 
     private func addSubviews() {

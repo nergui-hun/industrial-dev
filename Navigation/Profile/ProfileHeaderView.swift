@@ -9,19 +9,30 @@ import Foundation
 import UIKit
 import SnapKit
 
-class ProfileHeaderView: UIView {
+class ProfileHeaderView: UITableViewHeaderFooterView {
 
-    //================================VIEW ELEMENTS===============================//
-    /*
-     1. private let statusLabel: UILabel    V
-     2. private let statusTextField: UITextField
-     3. private let avatarImageView: UIImageView    !!!!!!!!!resize
-     4. private let fullNameLabel: UILabel  V
-     5. private lazy var setStatusButton: UIButton
-     6. lazy var alphaView: UIView
-     7. private let closeButton: UIButton
-     */
-    private let statusLabel: UILabel = {
+    // MARK: - Variables
+
+    static let identifier = "ProfileHeaderView"
+
+    // MARK: - Gestures
+
+    private lazy var tap: UITapGestureRecognizer = {
+        let tapGesture = UITapGestureRecognizer()
+        tapGesture.addTarget(self, action: #selector(cancelEditing))
+        tapGesture.cancelsTouchesInView = false
+        return tapGesture
+    }()
+
+    // MARK: - Constraints
+
+    private var statusButtonTopConstraint: Constraint? = nil
+    let avatarImageViewSize: CGFloat = 130
+    let spacing: CGFloat = 16
+    
+    // MARK: - View Elements
+
+    let statusLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
@@ -54,7 +65,7 @@ class ProfileHeaderView: UIView {
         return imageView
     }()
 
-    private let fullNameLabel: UILabel = {
+    let fullNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = .black
@@ -81,7 +92,6 @@ class ProfileHeaderView: UIView {
         let view = UIView()
         view.backgroundColor = .white
         view.alpha = 0
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
@@ -98,22 +108,10 @@ class ProfileHeaderView: UIView {
         return button
     }()
 
-    //=============================GESTURES===================================//
-    private lazy var tap: UITapGestureRecognizer = {
-        let tapGesture = UITapGestureRecognizer()
-        tapGesture.addTarget(self, action: #selector(cancelEditing))
-        tapGesture.cancelsTouchesInView = false
-        return tapGesture
-    }()
+    // MARK: - Initializers
 
-    //============================CONSTRAINTS=================================//
-    private var statusButtonTopConstraint: Constraint? = nil
-    let avatarImageViewSize: CGFloat = 130
-    let spacing: CGFloat = 16
-
-    //===========================INITIALIZERS=================================//
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         addElements()
         setConstraints()
     }
@@ -123,17 +121,8 @@ class ProfileHeaderView: UIView {
     }
 
     
-    //==========================METHODS==================================//
-    /*
-     1. private func setConstraints()
-     2. private func addElements()
-     3. @objc func buttonPressed(_ sender: UIButton!)
-     4. func zoomInUserPhoto()
-     5. @objc func zoomOutUserPhoto(vc: UIViewController)
-     6. @objc func showClosePhotoButton()
-     7. @objc func hideClosePhotoButton() 
-     8. @objc func cancelEditing()
-     */
+    // MARK: - Methods
+
     private func setConstraints() {
         let labelsLeftSpace = spacing + avatarImageViewSize
 
