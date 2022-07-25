@@ -10,14 +10,11 @@ import StorageService
 
 class ProfileViewController: UIViewController {
 
-    //===================PROPERTIES=====================//
-    /*
-     1. var dataSource: [Post]
-     2. let profileHeaderView: ProfileHeaderView
-     3. private lazy var tableView: UITableView
-     */
+    // MARK: Values
     var dataSource: [Post] = []
 
+
+    // MARK: View Elements
     let profileHeaderView: ProfileHeaderView = {
         let phView = ProfileHeaderView()
         phView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +30,7 @@ class ProfileViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defaultCell")
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "photoCell")
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "postCell")
-        
+
         tableView.sectionFooterHeight = 0
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.tableHeaderView = profileHeaderView
@@ -43,18 +40,7 @@ class ProfileViewController: UIViewController {
     }()
 
 
-
-
-
-    //==========================METHODS=========================//
-    /*
-     1. override func viewDidLoad()
-     2. override func viewDidAppear(_ animated: Bool)
-     3. private func configureTableView()
-     4. private func setConstraints()
-     5. private func zoomInUserImage()
-     6. @objc private func zoomOutProfileImage(closePhotoButtonTap: UITapGestureRecognizer)
-     */
+    // MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Profile"
@@ -123,7 +109,7 @@ class ProfileViewController: UIViewController {
 
 
 
-//================================EXTENSIONS==================================//
+// MARK: Extensions
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource, PhotosTableViewCellDelegate {
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -167,7 +153,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource, Pho
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
+
 
     @objc func hideKeyboard() {
         view.endEditing(true)

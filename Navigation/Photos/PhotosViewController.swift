@@ -10,13 +10,11 @@ import UIKit
 
 class PhotosViewController: UIViewController {
 
-    //===================PROPERTIES=====================//
-    /*
-     1. private var dataSource: [String]
-     2. private lazy var collectionView: UICollectionView
-     3. let layout: UICollectionViewFlowLayout
-     */
+    // MARK: - Variables
+
     private var dataSource: [String] = []
+    
+    // MARK: - View Elements
 
     private lazy var collectionView: UICollectionView = {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -37,13 +35,7 @@ class PhotosViewController: UIViewController {
         return layout
     } ()
 
-    //==========================METHODS=========================//
-    /*
-     1. override func viewDidLoad()
-     2. private func configureCollectionView()
-     3. private func setConstraints()
-     4. private func addSubviews()
-     5. private func itemSize(for width: CGFloat, with spacing: CGFloat) -> CGSize */
+    // MARK: - Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,7 +74,8 @@ class PhotosViewController: UIViewController {
 }
 
 
-//=========================EXTENSIONS===========================//
+// MARK: - Extensions
+
 extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 20

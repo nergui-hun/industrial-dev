@@ -4,13 +4,16 @@
 //
 //  Created by M M on 4/25/22.
 //
-
 import Foundation
 import UIKit
 
-class LogInViewController: UIViewController {
+class LogInViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate {
 
-    //================================PROPERTIES===============================//
+    // MARK: Values
+    var delegate: LoginViewControllerDelegate?
+
+
+    // MARK: View Elements
     let logoImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "logo")
@@ -78,7 +81,7 @@ class LogInViewController: UIViewController {
     lazy var contentViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height)
 
 
-    //==============================METHODS==================================//
+    // MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -104,10 +107,15 @@ class LogInViewController: UIViewController {
         textField.textColor = .black
         textField.font = .systemFont(ofSize: 16, weight: .regular)
         textField.autocapitalizationType = .none
+        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
     }
 
     @objc func redirectProfile() {
+        let login = emailPhoneTextField.text
+        let password = passwordTextField.text
+
+        delegate?.matchCheck(login: login!, password: password!)
         let profileViewController = ProfileViewController()
         let profileNavigationController = UINavigationController(rootViewController: profileViewController)
         self.tabBarController?.viewControllers?[1] = profileNavigationController
@@ -165,8 +173,7 @@ class LogInViewController: UIViewController {
         return tapGesture
     }()
 
-    //================================OBSERVERS===============================//
-
+    // MARK: Observers
     func createObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(kbdHide), name: UIResponder.keyboardWillHideNotification, object: nil)
