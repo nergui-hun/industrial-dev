@@ -13,7 +13,6 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        print("post")
     }
 
     @objc func newInfoViewController() {

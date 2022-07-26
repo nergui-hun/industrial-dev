@@ -8,23 +8,20 @@
 import Foundation
 import UIKit
 
+// MARK: - Protocols
+
 protocol PhotosTableViewCellDelegate: AnyObject {
     func redirectToGalleryAction()
 }
 
 class PhotosTableViewCell: UITableViewCell {
 
-    //==========================PROPERTIES=================================//
-    /*
-     1. private let photosLabel: UILabel
-     2. private lazy var photosButton: UIButton
-     3. private let firstImageView: UIImageView
-     4. private let secondImageView: UIImageView
-     5. private let thirdImageView: UIImageView
-     6. private let fourthImageView: UIImageView
-     7. private lazy var layout: UICollectionViewFlowLayout
-     8. weak var delegate: PhotosTableViewCellDelegate?
-     */
+    // MARK: - Variables
+
+    weak var delegate: PhotosTableViewCellDelegate?
+
+    // MARK: - View Elements
+
     private let photosLabel: UILabel = {
         let label = UILabel()
         label.text = "Photos"
@@ -88,9 +85,8 @@ class PhotosTableViewCell: UITableViewCell {
         return layout
     }()
 
-    weak var delegate: PhotosTableViewCellDelegate?
+    // MARK: - Initializers
 
-    //===========================INITIALIZERS=================================//
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubviews()
@@ -100,13 +96,9 @@ class PhotosTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    //===========================METHODS=================================//
-    /*
-     1. @objc func redirectToGalleryAction(_ sender: Any)
-     2. private func addSubviews()
-     3. private func setConstraints()
-     4. func setup()
-     */
+
+    // MARK: - Methods
+
     @objc func redirectToGalleryAction(_ sender: Any) {
         delegate?.redirectToGalleryAction()
     }

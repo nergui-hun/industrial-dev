@@ -7,16 +7,17 @@
 
 import Foundation
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController: UIViewController {
 
-    //===================PROPERTIES=====================//
-    /*
-     1. private var dataSource: [String]
-     2. private lazy var collectionView: UICollectionView
-     3. let layout: UICollectionViewFlowLayout
-     */
+    // MARK: - Variables
+
     private var dataSource: [String] = []
+    private let facade = ImagePublisherFacade()
+    private var photos: [UIImage] = []
+    
+    // MARK: - View Elements
 
     private lazy var collectionView: UICollectionView = {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -37,13 +38,7 @@ class PhotosViewController: UIViewController {
         return layout
     } ()
 
-    //==========================METHODS=========================//
-    /*
-     1. override func viewDidLoad()
-     2. private func configureCollectionView()
-     3. private func setConstraints()
-     4. private func addSubviews()
-     5. private func itemSize(for width: CGFloat, with spacing: CGFloat) -> CGSize */
+    // MARK: - Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +49,14 @@ class PhotosViewController: UIViewController {
 
         configureCollectionView()
         dataSource = fetchData()
+
+        facade.subscribe(self)
+        facade.addImagesWithTimer(time: 0.5, repeat: photos.count)
+    }
+
+    deinit {
+        facade.removeSubscription(for: self)
+        facade.rechargeImageLibrary()
     }
 
     private func configureCollectionView() {
@@ -82,7 +85,8 @@ class PhotosViewController: UIViewController {
 }
 
 
-//=========================EXTENSIONS===========================//
+// MARK: - Extensions
+
 extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 20
@@ -129,4 +133,15 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         return [photo1, photo2, photo3, photo4, photo5, photo6, photo7, photo8, photo9, photo10,
                 photo11, photo12, photo13, photo14, photo15, photo16, photo17, photo18, photo19, photo20]
     }
+}
+
+extension PhotosViewController: ImageLibrarySubscriber {
+    func receive(images: [UIImage]) {
+            for i in images {
+                photos.append(i)
+            }
+            collectionView.reloadData()
+        }
+
+    
 }

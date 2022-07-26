@@ -10,16 +10,7 @@ import UIKit
 
 class ProfileHeaderView: UIView {
 
-    //================================VIEW ELEMENTS===============================//
-    /*
-     1. private let statusLabel: UILabel
-     2. private let statusTextField: UITextField
-     3. private let avatarImageView: UIImageView
-     4. private let fullNameLabel: UILabel
-     5. private lazy var setStatusButton: UIButton
-     6. lazy var alphaView: UIView
-     7. private let closeButton: UIButton
-     */
+    // MARK: - View Elements
     private let statusLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .lightGray
@@ -103,7 +94,7 @@ class ProfileHeaderView: UIView {
         return button
     }()
 
-    //=============================GESTURES===================================//
+    // MARK: Gestures
     private lazy var tap: UITapGestureRecognizer = {
         let tapGesture = UITapGestureRecognizer()
         tapGesture.addTarget(self, action: #selector(cancelEditing))
@@ -111,7 +102,7 @@ class ProfileHeaderView: UIView {
         return tapGesture
     }()
 
-    //============================CONSTRAINTS=================================//
+    // MARK: Constraints
     private var statusButtonTopConstraint: NSLayoutConstraint?
     private var avatarImageViewLeftConstraint: NSLayoutConstraint?
     private var avatarImageViewTopConstraint: NSLayoutConstraint?
@@ -128,7 +119,8 @@ class ProfileHeaderView: UIView {
     let avatarImageViewSize: CGFloat = 130
 
 
-    //===========================INITIALIZERS=================================//
+    // MARK: init()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
@@ -139,18 +131,8 @@ class ProfileHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    
-    //==========================METHODS==================================//
-    /*
-     1. private func setConstraints()
-     2. private func addSubviews()
-     3. @objc func buttonPressed(_ sender: UIButton!)
-     4. func zoomInUserPhoto()
-     5. @objc func zoomOutUserPhoto(vc: UIViewController)
-     6. @objc func showClosePhotoButton()
-     7. @objc func hideClosePhotoButton() 
-     8. @objc func cancelEditing()
-     */
+
+    // MARK: Methods
     private func setConstraints() {
 
         let spacing: CGFloat = 16
@@ -202,7 +184,7 @@ class ProfileHeaderView: UIView {
         avatarImageView.addSubview(closePhotoButton)
         self.addGestureRecognizer(tap)
     }
-    
+
 
     @objc func buttonPressed(_ sender: UIButton!) {
 
