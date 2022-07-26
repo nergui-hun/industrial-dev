@@ -7,12 +7,15 @@
 
 import Foundation
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController: UIViewController {
 
     // MARK: - Variables
 
     private var dataSource: [String] = []
+    private let facade = ImagePublisherFacade()
+    private var photos: [UIImage] = []
     
     // MARK: - View Elements
 
@@ -46,6 +49,14 @@ class PhotosViewController: UIViewController {
 
         configureCollectionView()
         dataSource = fetchData()
+
+        facade.subscribe(self)
+        facade.addImagesWithTimer(time: 0.5, repeat: photos.count)
+    }
+
+    deinit {
+        facade.removeSubscription(for: self)
+        facade.rechargeImageLibrary()
     }
 
     private func configureCollectionView() {
@@ -122,4 +133,15 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         return [photo1, photo2, photo3, photo4, photo5, photo6, photo7, photo8, photo9, photo10,
                 photo11, photo12, photo13, photo14, photo15, photo16, photo17, photo18, photo19, photo20]
     }
+}
+
+extension PhotosViewController: ImageLibrarySubscriber {
+    func receive(images: [UIImage]) {
+            for i in images {
+                photos.append(i)
+            }
+            collectionView.reloadData()
+        }
+
+    
 }

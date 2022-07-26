@@ -14,7 +14,6 @@ protocol LoginFactory {
 
 class MyLoginFactory: LoginFactory {
     func getLoginInspector() -> LoginInspector {
-        let inspector = LoginInspector()
-        return inspector
+       LoginInspector()
     }
 }

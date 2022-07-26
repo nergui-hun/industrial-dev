@@ -29,9 +29,6 @@ final class Checker {
     // MARK: - Methods
 
     func doMatch(login: String, password: String) -> Bool {
-        if self.login == login && self.password == password {
-            return true
-        }
-        return false
+        self.login == login && self.password == password
     }
 }
