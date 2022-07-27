@@ -24,6 +24,8 @@ final class PostViewController: UIViewController {
     private func setupView() {
         
         view.backgroundColor = .white
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.tintColor = .systemBlue
         let infoBarButtonItem = UIBarButtonItem(title: "News", style: .plain, target: self, action: #selector(self.newInfoViewController))
         self.navigationItem.rightBarButtonItem = infoBarButtonItem
     }

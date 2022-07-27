@@ -38,21 +38,18 @@ final class LogInViewController: UIViewController, UITextViewDelegate, UITextFie
         return textField
     } ()
 
-    private lazy var logInButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Log In", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+    private lazy var logInButton: CustomButton = {
+        let button = CustomButton(title: "Log In", titleColor: .white, action: redirectProfile)
         button.setBackgroundImage(UIImage(named: "blue_pixel.png"), for: .normal)
         button.clipsToBounds = true
         button.layer.cornerRadius = 10
 
-        if button.isSelected || button.isHighlighted || !button.isEnabled{
+        if button.isSelected || button.isHighlighted || !button.isEnabled {
             button.alpha = 0.8
         } else {
             button.alpha = 1
         }
 
-        button.addTarget(self, action: #selector(redirectProfile), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
