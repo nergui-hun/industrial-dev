@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import StorageService
 
-class PostTableViewCell: UITableViewCell {
+final class PostTableViewCell: UITableViewCell {
 
     // MARK: - View Elements
 

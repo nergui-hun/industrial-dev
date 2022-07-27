@@ -7,7 +7,7 @@
 
 import Foundation
 
-class LoginInspector: LoginViewControllerDelegate {
+final class LoginInspector: LoginViewControllerDelegate {
     
     func matchCheck(login: String, password: String) -> Bool {
         let data = Checker.shared.doMatch(login: login, password: password)

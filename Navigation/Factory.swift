@@ -12,7 +12,7 @@ protocol LoginFactory {
 }
 
 
-class MyLoginFactory: LoginFactory {
+final class MyLoginFactory: LoginFactory {
     func getLoginInspector() -> LoginInspector {
        LoginInspector()
     }

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class InfoViewController: UIViewController {
+final class InfoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

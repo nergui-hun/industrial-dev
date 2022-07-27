@@ -14,7 +14,7 @@ protocol PhotosTableViewCellDelegate: AnyObject {
     func redirectToGalleryAction()
 }
 
-class PhotosTableViewCell: UITableViewCell {
+final class PhotosTableViewCell: UITableViewCell {
 
     // MARK: - Variables
 

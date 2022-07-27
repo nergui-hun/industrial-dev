@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class LogInViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate {
+final class LogInViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate {
 
     // MARK: Values
     var delegate: LoginViewControllerDelegate?

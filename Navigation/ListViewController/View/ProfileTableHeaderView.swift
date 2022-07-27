@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ProfileTableHeaderView: UIViewController {
+final class ProfileTableHeaderView: UIViewController {
 
     let profileHeaderView = ProfileHeaderView()
 

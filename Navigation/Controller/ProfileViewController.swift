@@ -8,7 +8,7 @@
 import UIKit
 import StorageService
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
 
     // MARK: Values
     var dataSource: [Post] = []

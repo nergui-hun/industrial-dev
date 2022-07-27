@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class PhotosCollectionViewCell: UICollectionViewCell {
+final class PhotosCollectionViewCell: UICollectionViewCell {
 
     // MARK: - View Elements
 

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ProfileHeaderView: UIView {
+final class ProfileHeaderView: UIView {
 
     // MARK: - View Elements
     private let statusLabel: UILabel = {

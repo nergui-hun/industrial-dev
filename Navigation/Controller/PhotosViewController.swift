@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import iOSIntPackage
 
-class PhotosViewController: UIViewController {
+final class PhotosViewController: UIViewController {
 
     // MARK: - Variables
 
@@ -110,36 +110,13 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
     }
 
     func fetchData() -> [String] {
-        let photo1 = String("1")
-        let photo2 = String("2")
-        let photo3 = String("3")
-        let photo4 = String("4")
-        let photo5 = String("5")
-        let photo6 = String("6")
-        let photo7 = String("7")
-        let photo8 = String("8")
-        let photo9 = String("9")
-        let photo10 = String("10")
-        let photo11 = String("11")
-        let photo12 = String("12")
-        let photo13 = String("13")
-        let photo14 = String("14")
-        let photo15 = String("15")
-        let photo16 = String("16")
-        let photo17 = String("17")
-        let photo18 = String("18")
-        let photo19 = String("19")
-        let photo20 = String("20")
-        return [photo1, photo2, photo3, photo4, photo5, photo6, photo7, photo8, photo9, photo10,
-                photo11, photo12, photo13, photo14, photo15, photo16, photo17, photo18, photo19, photo20]
+        (1...20).map{ String($0) }
     }
 }
 
 extension PhotosViewController: ImageLibrarySubscriber {
     func receive(images: [UIImage]) {
-            for i in images {
-                photos.append(i)
-            }
+            photos = images
             collectionView.reloadData()
         }
 
