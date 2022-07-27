@@ -20,7 +20,7 @@ final class PhotosCollectionViewCell: UICollectionViewCell {
         return imageView
     } ()
 
-    //===========================INITIALIZERS=================================//
+    // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
         

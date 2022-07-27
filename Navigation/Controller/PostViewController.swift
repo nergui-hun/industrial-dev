@@ -10,6 +10,8 @@ import UIKit
 
 final class PostViewController: UIViewController {
 
+    // MARK: - Methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()

@@ -10,10 +10,13 @@ import UIKit
 final class LogInViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate {
 
     // MARK: Values
+
     var delegate: LoginViewControllerDelegate?
+    lazy var contentViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height)
 
 
     // MARK: View Elements
+
     let logoImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "logo")
@@ -75,10 +78,9 @@ final class LogInViewController: UIViewController, UITextViewDelegate, UITextFie
         return scrollView
     } ()
 
-    lazy var contentViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height)
-
 
     // MARK: Methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()

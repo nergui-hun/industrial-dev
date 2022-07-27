@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import iOSIntPackage
+import SnapKit
 
 final class PhotosViewController: UIViewController {
 
@@ -65,12 +66,9 @@ final class PhotosViewController: UIViewController {
     }
 
     private func setConstraints() {
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 8),
-            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8),
-            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8)
-        ])
+        collectionView.snp.makeConstraints{ make in
+            make.right.left.top.bottom.equalTo(view).inset(8)
+        }
     }
 
     private func addSubviews() {

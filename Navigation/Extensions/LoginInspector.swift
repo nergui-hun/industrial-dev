@@ -10,11 +10,6 @@ import Foundation
 final class LoginInspector: LoginViewControllerDelegate {
     
     func matchCheck(login: String, password: String) -> Bool {
-        let data = Checker.shared.doMatch(login: login, password: password)
-        if data {
-            return true
-        } else {
-            return false
-        }
+        Checker.shared.doMatch(login: login, password: password)
     }
 }

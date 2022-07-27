@@ -55,20 +55,12 @@ final class FeedViewController: UIViewController {
         return stack
     }()
 
-    var feedTextField: CustomTextField = {
-        let textField = CustomTextField {}
-        return textField
-    } ()
+    private let feedTextField = CustomTextField(){}
 
-    private lazy var checkPasswordButton: CustomCheckButton = {
-        let button = CustomCheckButton {}
-        return button
-    } ()
+    private let checkPasswordButton = CustomCheckButton(){}
 
-    private let statusLabel: UILabel = {
-        let label = UILabel()
-        return label
-    } ()
+    private let statusLabel = UILabel()
+
 
     // MARK: - Methods
     override func viewDidLoad() {

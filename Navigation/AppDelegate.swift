@@ -17,6 +17,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
         
         // MARK: Feed VC
+
         let feedVC = FeedViewController()
         let feedNavC = UINavigationController(rootViewController: feedVC)
         feedNavC.setViewControllers([feedVC], animated: true)
@@ -24,6 +25,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
         // MARK: Login VC
+
         let loginVC = LogInViewController()
         let loginNavC = UINavigationController(rootViewController: loginVC)
         loginNavC.setViewControllers([loginVC], animated: true)
@@ -34,6 +36,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
         // MARK: Tab Bar
+
         let tabBarController = UITabBarController()
         self.window?.rootViewController = tabBarController
         tabBarController.viewControllers = [feedNavC, loginNavC]
@@ -42,8 +45,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController.tabBar.isTranslucent = false
 
        
-
-        
         self.window?.makeKeyAndVisible()
         return true
     }

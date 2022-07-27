@@ -18,7 +18,6 @@ final class CustomButton: UIButton {
         self.setTitle(title, for: .normal)
         self.setTitleColor(titleColor, for: .normal)
         self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-
     }
 
     required init?(coder: NSCoder) {

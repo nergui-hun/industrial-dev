@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 final class CustomTextField: UITextField {
+
     private let editText: () -> Void
-    var password: String = ""
 
     init(editText: @escaping() -> Void) {
         self.editText = editText

@@ -11,21 +11,25 @@ import SnapKit
 
 final class InfoViewController: UIViewController {
 
+    // MARK: - View Elements
+
     lazy var alertButton: CustomButton = {
         let alertButton = CustomButton(title: "Post a photo", titleColor: .black, action: alertButtonAction)
         alertButton.backgroundColor = .yellow
         return alertButton
     } ()
 
+    // MARK: - Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
         setupView()
     }
 
 
     private func setupView() {
+        view.backgroundColor = .black
+        
         self.view.addSubview(alertButton)
         alertButton.snp.makeConstraints { make in
             make.center.equalToSuperview()

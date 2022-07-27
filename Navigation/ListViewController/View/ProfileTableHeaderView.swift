@@ -10,8 +10,16 @@ import UIKit
 
 final class ProfileTableHeaderView: UIViewController {
 
-    let profileHeaderView = ProfileHeaderView()
+    // MARK: - View Elements
+    let profileHeaderView: ProfileHeaderView = {
+        let view = ProfileHeaderView()
+        view.backgroundColor = UIColor.lightGray
+        view.layer.borderColor = UIColor.black.cgColor
+        view.layer.borderWidth = 1
+        return view
+    }()
 
+    // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -19,22 +27,11 @@ final class ProfileTableHeaderView: UIViewController {
 
     private func setupView() {
         title = "Profile"
-        view.backgroundColor = .white
+        //view.backgroundColor = .white
         view.layer.borderColor = UIColor.black.cgColor
         view.layer.borderWidth = 1
 
-        profileHeaderView.backgroundColor = UIColor.lightGray
-        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
-
         view.addSubview(profileHeaderView)
-        profileHeaderView.layer.borderColor = UIColor.black.cgColor
-        profileHeaderView.layer.borderWidth = 1
-
-        NSLayoutConstraint.activate([
-            profileHeaderView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
-            profileHeaderView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
-            profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            profileHeaderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+        profileHeaderView.pin(to: view)
     }
 }

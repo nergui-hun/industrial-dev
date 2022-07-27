@@ -11,14 +11,16 @@ import StorageService
 final class ProfileViewController: UIViewController {
 
     // MARK: Values
+
     var dataSource: [Post] = []
 
 
     // MARK: View Elements
+
     let profileHeaderView: ProfileHeaderView = {
         let phView = ProfileHeaderView()
-        phView.translatesAutoresizingMaskIntoConstraints = false
         phView.avatarImageView.isUserInteractionEnabled = true
+        phView.translatesAutoresizingMaskIntoConstraints = false
         return phView
     }()
 
@@ -41,14 +43,11 @@ final class ProfileViewController: UIViewController {
 
 
     // MARK: Methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Profile"
         self.navigationController?.navigationBar.isHidden = true
-
-        #if DEBUG
-        tableView.backgroundColor = .cyan
-        #endif
 
         configureTableView()
         dataSource = fetchData()
