@@ -55,9 +55,17 @@ final class FeedViewController: UIViewController {
         return stack
     }()
 
-    private let feedTextField = CustomTextField(){}
+    private let feedTextField = CustomTextField() {}
 
-    private let checkPasswordButton = CustomCheckButton(){}
+    private let checkPasswordButton: CustomButton = {
+        let button = CustomButton(title: "Check password", titleColor: .white) {
+            if !Word.shared.compareString.isEmpty {
+                Word.shared.check()
+            }
+        }
+        button.backgroundColor = .systemBlue
+        return button
+    } ()
 
     private let statusLabel = UILabel()
 
