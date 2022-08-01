@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SnapKit
+import iOSIntPackage
 
 final class PhotosViewController: UIViewController {
 
@@ -46,7 +47,13 @@ final class PhotosViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
 
         setupView()
-        dataSource = fetchData()
+        //dataSource = fetchData()
+
+        let photos = fetchData()
+
+        for qos in 0...4 {
+            imageProcessingInThread(photos, qos)
+        }
     }
 
     private func setupView() {
@@ -87,7 +94,29 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         return self.itemSize(for: collectionView.frame.width, with: spacing ?? 0)
     }
 
-    func fetchData() -> [String] {
-        (1...20).map { String($0)}
+    private func imageProcessingInThread(_ photos: [UIImage], _ qos: Int) {
+        switch qos {
+        case 0:
+                    ImageProcessor().processImagesOnThread(sourceImages: photos, filter: .allCases[qos], qos: .userInteractive) { _ in
+                    }
+                case 1:
+                    ImageProcessor().processImagesOnThread(sourceImages: photos, filter: .allCases[qos], qos: .userInitiated) { _ in
+                    }
+                case 2:
+                    ImageProcessor().processImagesOnThread(sourceImages: photos, filter: .allCases[qos], qos: .utility) { _ in
+                    }
+                case 3:
+                    ImageProcessor().processImagesOnThread(sourceImages: photos, filter: .allCases[qos], qos: .background) { _ in
+                    }
+                case 4:
+                    ImageProcessor().processImagesOnThread(sourceImages: photos, filter: .allCases[qos], qos: .default) { _ in
+                    }
+                default:
+                    break
+        }
+    }
+
+    func fetchData() -> [UIImage] {
+        (1...20).map { UIImage(systemName: String($0))!}
     }
 }

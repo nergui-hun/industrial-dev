@@ -7,6 +7,8 @@ target 'Navigation' do
 
   pod 'SnapKit'
 
+  pod 'iOSIntPackage-3.2.3'
+
 end
 
 target 'StorageService' do
