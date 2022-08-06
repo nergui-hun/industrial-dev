@@ -126,7 +126,14 @@ class LogInViewController: UIViewController {
             }
         }
 
-
+        do {
+            let titleString = try getString()
+            print(titleString)
+        } catch AppError.notFound {
+            print("The string doesn't exist")
+        } catch {
+            print("We have some problem on our side")
+        }
     }
 
     private func getPhoto(completion: @escaping (Result<UIImage, AppError>) -> Void) {
@@ -137,8 +144,13 @@ class LogInViewController: UIViewController {
         }
     }
 
-    private func getString() throws -> String? {
-        return title
+    private func getString() throws -> String {
+        if let titleString = title {
+            return titleString
+        } else {
+            throw AppError.notFound
+        }
+
     }
 
     @objc func cancelEditing() {
@@ -148,7 +160,6 @@ class LogInViewController: UIViewController {
 
 
     private func setupView() {
-        title = "Profile"
         view.backgroundColor = .white
         self.navigationController?.navigationBar.isHidden = true
         view.layer.borderColor = UIColor.lightGray.cgColor
