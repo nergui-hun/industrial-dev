@@ -115,7 +115,6 @@ class LogInViewController: UIViewController {
     }
 
     @objc func redirectProfile() {
-
         getPhoto { result in
             switch result {
             case .success(let image): self.logoImage.image = image
@@ -126,6 +125,8 @@ class LogInViewController: UIViewController {
                 handle(error: error)
             }
         }
+
+
     }
 
     private func getPhoto(completion: @escaping (Result<UIImage, AppError>) -> Void) {
@@ -134,6 +135,10 @@ class LogInViewController: UIViewController {
         } else {
             completion(.failure(.notFound))
         }
+    }
+
+    private func getString() throws -> String? {
+        return title
     }
 
     @objc func cancelEditing() {
