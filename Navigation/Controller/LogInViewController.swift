@@ -115,24 +115,24 @@ class LogInViewController: UIViewController {
     }
 
     @objc func redirectProfile() {
-        do {
-            logoImage.image = try getPhoto()
-        } catch AppError.notFound {
-            let alert = UIAlertController(title: "Image not found", message: "", preferredStyle: .alert)
-            alert.addAction(closeAlertAction)
-            self.present(alert, animated: true, completion: nil)
-        } catch {
-            let alert = UIAlertController(title: "We have some problem on our side", message: "", preferredStyle: .alert)
-            alert.addAction(closeAlertAction)
-            self.present(alert, animated: true, completion: nil)
+
+        getPhoto { result in
+            switch result {
+            case .success(let image): self.logoImage.image = image
+            case .failure(let error): let alert = UIAlertController(title: "Image not found", message: "", preferredStyle: .alert)
+                alert.addAction(self.closeAlertAction)
+                self.present(alert, animated: true, completion: nil)
+
+                handle(error: error)
+            }
         }
     }
 
-    private func getPhoto() throws -> UIImage {
+    private func getPhoto(completion: @escaping (Result<UIImage, AppError>) -> Void) {
         if let image = UIImage(named: "21") {
-            return image
+            completion(.success(image))
         } else {
-            throw AppError.notFound
+            completion(.failure(.notFound))
         }
     }
 
