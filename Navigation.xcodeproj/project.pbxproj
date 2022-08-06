@@ -13,6 +13,7 @@
 		8D35FD6D2823E4B50016BE52 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D35FD6C2823E4B50016BE52 /* PhotosTableViewCell.swift */; };
 		8D35FD6F282425600016BE52 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D35FD6E282425600016BE52 /* PhotosViewController.swift */; };
 		8D35FD71282427310016BE52 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D35FD70282427310016BE52 /* Photo.swift */; };
+		8D40D35A289EAACB00A89F45 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D40D359289EAACB00A89F45 /* AppError.swift */; };
 		8D69648328836E02001E2353 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 8D69648228836E02001E2353 /* iOSIntPackage */; };
 		8D8B52E22871646C000ECFB2 /* StorageService.docc in Sources */ = {isa = PBXBuildFile; fileRef = 8D8B52E12871646C000ECFB2 /* StorageService.docc */; };
 		8D8B52E82871646C000ECFB2 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8B52DE2871646C000ECFB2 /* StorageService.framework */; };
@@ -77,6 +78,7 @@
 		8D35FD6C2823E4B50016BE52 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		8D35FD6E282425600016BE52 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		8D35FD70282427310016BE52 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		8D40D359289EAACB00A89F45 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		8D8B52DE2871646C000ECFB2 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D8B52E02871646C000ECFB2 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		8D8B52E12871646C000ECFB2 /* StorageService.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = StorageService.docc; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				8DBE083F28227F210005B573 /* UIView+Ext.swift */,
+				8D40D359289EAACB00A89F45 /* AppError.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -537,6 +540,7 @@
 				8DBE084028227F210005B573 /* UIView+Ext.swift in Sources */,
 				8D2C4A68281B9D8E00E5C8A5 /* ProfileTableHeaderView.swift in Sources */,
 				8DAD9BD3284D6C3E00B7E969 /* PhotosCollectionViewCell.swift in Sources */,
+				8D40D35A289EAACB00A89F45 /* AppError.swift in Sources */,
 				8D1279E9281C76D300CAD3DB /* PostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

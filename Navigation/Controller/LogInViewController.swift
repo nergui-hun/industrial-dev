@@ -13,6 +13,9 @@ class LogInViewController: UIViewController {
     // MARK: - Values
 
     lazy var contentViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height)
+    let closeAlertAction = UIAlertAction(title: "Close", style: .default) { (action) -> Void in
+        ()
+    }
 
     // MARK: - View Elements
 
@@ -112,10 +115,25 @@ class LogInViewController: UIViewController {
     }
 
     @objc func redirectProfile() {
-        let profileViewController = ProfileViewController()
-        let profileNavigationController = UINavigationController(rootViewController: profileViewController)
-        self.tabBarController?.viewControllers?[1] = profileNavigationController
-        profileNavigationController.tabBarItem.image = UIImage(systemName: "person.fill")
+        do {
+            logoImage.image = try getPhoto()
+        } catch AppError.notFound {
+            let alert = UIAlertController(title: "Image not found", message: "", preferredStyle: .alert)
+            alert.addAction(closeAlertAction)
+            self.present(alert, animated: true, completion: nil)
+        } catch {
+            let alert = UIAlertController(title: "We have some problem on our side", message: "", preferredStyle: .alert)
+            alert.addAction(closeAlertAction)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+
+    private func getPhoto() throws -> UIImage {
+        if let image = UIImage(named: "21") {
+            return image
+        } else {
+            throw AppError.notFound
+        }
     }
 
     @objc func cancelEditing() {
