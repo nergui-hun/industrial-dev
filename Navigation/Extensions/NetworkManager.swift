@@ -31,8 +31,8 @@ struct NetworkManager {
                     switch result {
                     case .success(let response):
                         print("request to \(urlString): SUCCESS ->")
-                        if let code = response.httpResponseCode { print(" - code: \(code)") }
-                        if let description = response.httpResponseDescription { print(" - description: \(description)") }
+                        if let code = response.httpStatusCode { print(" - code: \(code)") }
+                        if let description = response.httpStatusDescription { print(" - description: \(description)") }
                         if let headers = response.httpHeadersDescription { print(" - headers: \(headers)")}
                         if let data = response.data { print(" - data: \(data)")}
                         break;
