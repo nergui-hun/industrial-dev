@@ -19,6 +19,12 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         let mainCoordinator = MainCoordinatorImp()
         self.window?.rootViewController = mainCoordinator.startApplication()
 
+        DispatchQueue.global().async {
+            for _ in 0...6 {
+                NetworkManager.request(for: AppConfiguration.random())
+            }
+        }
+
         return true
     }
     
