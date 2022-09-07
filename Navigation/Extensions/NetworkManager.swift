@@ -18,7 +18,33 @@ struct NetworkError: Error {
     var description: String?
 }
 
-struct NetworkManager {
+class NetworkManager {
+
+    static var shared = NetworkManager()
+
+    static private(set) var title: String = ""
+     func getTitle() {
+        guard let url = URL(string: "https://jsonplaceholder.typicode.com/todos/1") else { return }
+        let session = URLSession(configuration: .default)
+        session.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            guard let data = data else {
+                return
+            }
+            do {
+                let serializedDictionary = try JSONSerialization.jsonObject(with: data, options: [])
+                guard let dictionary = serializedDictionary as? [String : Any] else { return }
+                guard let title = dictionary["title"] as? String else { return }
+                NetworkManager.title = title
+            } catch {
+                print(error.localizedDescription)
+            }
+        }.resume()
+    }
+
     static func request(for configuration: AppConfiguration) {
 
         switch configuration {
@@ -26,7 +52,7 @@ struct NetworkManager {
 
             if let url = URL(string: urlString) {
                 request(url: url) { result in
-                    print("---")
+                    print("-----------------------------------------------------")
 
                     switch result {
                     case .success(let response):

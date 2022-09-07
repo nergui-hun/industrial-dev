@@ -14,12 +14,9 @@ enum AppConfiguration {
     case planets(String)
 
     static func random() -> AppConfiguration {
-        var generator = SystemRandomNumberGenerator()
+        let id = Int.random(in: 1...100)
 
-        let index = Int.random(in: 1...3, using: &generator)
-        let id = Int.random(in: 1...100, using: &generator)
-
-        switch index {
+        switch Int.random(in: 1...3) {
         case 1:
             return AppConfiguration.people("https://swapi.dev/api/people/\(id)")
         case 2:

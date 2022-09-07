@@ -24,7 +24,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
                 NetworkManager.request(for: AppConfiguration.random())
             }
         }
-
         return true
     }
     

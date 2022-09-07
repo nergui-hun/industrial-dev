@@ -7,10 +7,28 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 final class InfoViewController: UIViewController {
 
     // MARK: - View Elements
+
+    let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.distribution = .fillEqually
+        stackView.axis = .vertical
+        //stackView
+        return stackView
+    } ()
+
+    var titleLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .white
+        label.textColor = .black
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 15)
+        return label
+    } ()
 
     let alertButton: UIButton = {
         let alertButton = UIButton(type: .system)
@@ -32,10 +50,19 @@ final class InfoViewController: UIViewController {
 
     private func setupElements() {
         view.backgroundColor = .black
-        view.addSubview(alertButton)
+        view.addSubview(stackView)
+        stackView.addArrangedSubview(alertButton)
+        stackView.addArrangedSubview(titleLabel)
+
+
         alertButton.frame.size = CGSize(width: 150, height: 50)
-        alertButton.center = view.center
-        alertButton.autoresizingMask = [.flexibleRightMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleTopMargin]
+
+        stackView.snp.makeConstraints { make in
+            make.width.height.equalToSuperview()
+            //make.
+        }
+
+        titleLabel.text = NetworkManager.title
     }
 
     @objc func alertButtonAction(_ sender: UIButton!) {
