@@ -27,6 +27,17 @@ final class InfoViewController: UIViewController {
         label.textColor = .black
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 15)
+        label.numberOfLines = 0
+        return label
+    } ()
+
+    var planetLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .white
+        label.textColor = .black
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 15)
+        label.numberOfLines = 0
         return label
     } ()
 
@@ -53,16 +64,18 @@ final class InfoViewController: UIViewController {
         view.addSubview(stackView)
         stackView.addArrangedSubview(alertButton)
         stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(planetLabel)
 
 
         alertButton.frame.size = CGSize(width: 150, height: 50)
 
         stackView.snp.makeConstraints { make in
             make.width.height.equalToSuperview()
-            //make.
         }
 
         titleLabel.text = NetworkManager.title
+        let orbitalPeriod: String = NetworkManager.orbitalPeriod == "TEST" ?  "Error: There is something wrong with the orbital period data" : "Orbital period of Tatooine: \(NetworkManager.orbitalPeriod)"
+        planetLabel.text = orbitalPeriod
     }
 
     @objc func alertButtonAction(_ sender: UIButton!) {

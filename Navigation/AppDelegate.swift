@@ -20,9 +20,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = mainCoordinator.startApplication()
 
         DispatchQueue.global().async {
-            for _ in 0...6 {
-                NetworkManager.request(for: AppConfiguration.random())
-            }
+                NetworkManager.getTitle()
+                NetworkManager.getPlanetData()
         }
         return true
     }
