@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseCore
+import FirebaseAuth
 
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,8 +16,14 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         self.window = UIWindow(frame: UIScreen.main.bounds)
+<<<<<<< Updated upstream
         let tabBarController = UITabBarController()
         self.window?.rootViewController = tabBarController
+=======
+        self.window?.makeKeyAndVisible()
+
+        FirebaseApp.configure()
+>>>>>>> Stashed changes
         
         let feedViewController = FeedViewController()
         let logInViewController = LogInViewController()
@@ -37,6 +45,16 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window?.makeKeyAndVisible()
         return true
+    }
+
+    func applicationWillTerminate(_ application: UIApplication) {
+        if Auth.auth().currentUser != nil {
+            do {
+                try Auth.auth().signOut()
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
+        }
     }
     
 }

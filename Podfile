@@ -7,6 +7,10 @@ target 'Navigation' do
 
   pod 'SnapKit'
 
+  pod 'FirebaseAnalytics'
+
+  pod 'FirebaseAuth'
+
 end
 
 target 'StorageService' do

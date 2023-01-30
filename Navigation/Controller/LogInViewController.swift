@@ -7,14 +7,29 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
+import SnapKit
 
-class LogInViewController: UIViewController {
+final class LogInViewController: UIViewController {
 
     // MARK: - Values
 
+<<<<<<< Updated upstream
+=======
+    private let coordinator: LoginCoordinator
+    let viewModel: LoginVM
+>>>>>>> Stashed changes
     lazy var contentViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height)
+    private weak var loginDelegate: LoginViewControllerDelegate?
 
     // MARK: - View Elements
+
+    let errorLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = .red
+        return label
+    } ()
 
     let logoImage: UIImageView = {
         let image = UIImageView()
@@ -40,6 +55,7 @@ class LogInViewController: UIViewController {
         return textField
     } ()
 
+<<<<<<< Updated upstream
     private lazy var logInButton: UIButton = {
         let button = UIButton()
         button.setTitle("Log In", for: .normal)
@@ -55,6 +71,16 @@ class LogInViewController: UIViewController {
         }
 
         button.addTarget(self, action: #selector(redirectProfile), for: .touchUpInside)
+=======
+    private lazy var logInButton: CustomButton = {
+        let button = CustomButton(title: "Log In", titleColor: .white) {
+            self.logIn()
+        }
+        button.setBackgroundImage(UIImage(named: "blue_pixel.png"), for: .normal)
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 10
+        button.isEnabled = false
+>>>>>>> Stashed changes
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -81,6 +107,23 @@ class LogInViewController: UIViewController {
     } ()
 
 
+<<<<<<< Updated upstream
+=======
+    // MARK: - init
+
+    init(coordinator: LoginCoordinator, viewModel: LoginVM) {
+        self.coordinator = coordinator
+        self.viewModel = viewModel
+        loginDelegate = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+
+>>>>>>> Stashed changes
     // MARK: - Methods
 
     override func viewDidLoad() {
@@ -89,14 +132,41 @@ class LogInViewController: UIViewController {
         setConstraints()
     }
 
+    private func logIn() {
+        if let email = self.emailPhoneTextField.text, let pass = self.passwordTextField.text {
+            if let loginDelegate = loginDelegate {
+                loginDelegate.checkCredentials(email: email, pass: pass, vc: self)
+            }
+        } else {
+            print("\n\n\n\nerror\n\n\n\n")
+        }
+    }
+
+    func textChanged() {
+        if self.emailPhoneTextField.hasText && self.passwordTextField.hasText {
+            logInButton.isEnabled = true
+        } else {
+            logInButton.isEnabled = false
+        }
+
+        if logInButton.isSelected || logInButton.isHighlighted {
+            logInButton.alpha = 0.8
+        } else {
+            logInButton.alpha = 1
+        }
+    }
+
+
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        createObservers()
+        createKbdObservers()
+        createLoginObservers()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        removeObservers()
+        removeKbdObservers()
     }
 
     private func setupTextFields(_ textField: UITextField) {
@@ -108,9 +178,11 @@ class LogInViewController: UIViewController {
         textField.textColor = .black
         textField.font = .systemFont(ofSize: 16, weight: .regular)
         textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
         textField.translatesAutoresizingMaskIntoConstraints = false
     }
 
+<<<<<<< Updated upstream
     @objc func redirectProfile() {
         let profileViewController = ProfileViewController()
         let profileNavigationController = UINavigationController(rootViewController: profileViewController)
@@ -118,11 +190,29 @@ class LogInViewController: UIViewController {
         profileNavigationController.tabBarItem.image = UIImage(systemName: "person.fill")
     }
 
+=======
+>>>>>>> Stashed changes
     @objc func cancelEditing() {
         emailPhoneTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
     }
 
+<<<<<<< Updated upstream
+=======
+    private func setupViewModel() {
+        viewModel.stateChanged = { [weak self] state in
+            switch state {
+            case .initial:
+                ()
+            case .loaded:
+                self!.coordinator.redirectProfile(vc: ProfileViewController(), navCon: self!.navigationController, coordinator: self!.coordinator)
+            case .error:
+                ()
+            }
+        }
+    }
+
+>>>>>>> Stashed changes
 
     private func setupView() {
         title = "Profile"
@@ -139,27 +229,36 @@ class LogInViewController: UIViewController {
         logInTextFieldsScrollView.addSubview(contentView)
         view.addSubview(logInTextFieldsScrollView)
         view.addSubview(logInButton)
+        view.addSubview(errorLabel)
 
         view.addGestureRecognizer(tap)
     }
 
     private func setConstraints() {
-        NSLayoutConstraint.activate([
-            logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 120),
-            logoImage.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            logoImage.heightAnchor.constraint(equalToConstant: 120),
-            logoImage.widthAnchor.constraint(equalToConstant: 120),
 
-            logInTextFieldsStackView.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 120),
-            logInTextFieldsStackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-            logInTextFieldsStackView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            logInTextFieldsStackView.heightAnchor.constraint(equalToConstant: 100),
+        logoImage.snp.makeConstraints { make in
+            make.topMargin.equalTo(view.safeAreaLayoutGuide.snp.top).offset(120)
+            make.centerX.equalToSuperview()
+            make.height.width.equalTo(120)
+        }
 
-            logInButton.topAnchor.constraint(equalTo: logInTextFieldsStackView.bottomAnchor, constant: 16),
-            logInButton.leftAnchor.constraint(equalTo: logInTextFieldsStackView.leftAnchor),
-            logInButton.rightAnchor.constraint(equalTo: logInTextFieldsStackView.rightAnchor),
-            logInButton.heightAnchor.constraint(equalToConstant: 50)
-        ])
+        errorLabel.snp.makeConstraints { make in
+            make.top.equalTo(logoImage.snp.bottom).offset(90)
+            make.leftMargin.rightMargin.equalToSuperview().inset(16)
+            make.height.equalTo(20)
+        }
+
+        logInTextFieldsStackView.snp.makeConstraints { make in
+            make.topMargin.equalTo(logoImage.snp.bottomMargin).offset(120)
+            make.rightMargin.leftMargin.equalToSuperview().inset(16)
+            make.height.equalTo(100)
+        }
+
+        logInButton.snp.makeConstraints { make in
+            make.topMargin.equalTo(logInTextFieldsStackView.snp.bottomMargin).offset(16)
+            make.rightMargin.leftMargin.equalTo(errorLabel)
+            make.height.equalTo(50)
+        }
     }
 
     private lazy var tap: UITapGestureRecognizer = {
@@ -171,14 +270,31 @@ class LogInViewController: UIViewController {
 
     // MARK: - Observers
 
-    func createObservers() {
+    private func createLoginObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(enableLoginButton), name:
+                                                UITextField.textDidChangeNotification, object: nil)
+    }
+
+    private func removeLoginObservers() {
+        NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: nil)
+    }
+
+    private func createKbdObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(kbdHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
-    func removeObservers() {
+    private func removeKbdObservers() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc func enableLoginButton() {
+        if emailPhoneTextField.hasText && passwordTextField.hasText {
+            logInButton.isEnabled = true
+        } else {
+            logInButton.isEnabled = false
+        }
     }
 
     @objc func kbdShow(notification: NSNotification) {
