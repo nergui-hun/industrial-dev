@@ -21,7 +21,7 @@ final class SavedTableViewCell: UITableViewCell {
     var viewModel: SavedPostsCellVM? {
         willSet(viewModel) {
             guard let viewModel = viewModel else {
-                print("hi")
+                print("SavedTableViewCell | viewModel | no viewModel")
                 return
             }
             authorLabel.text = viewModel.author
@@ -98,11 +98,6 @@ final class SavedTableViewCell: UITableViewCell {
     // MARK: - Methods
 
     @objc func unlikeAction() {
-
-        guard let viewModel = viewModel else {
-            return
-        }
-
             let post = CoreDataManager.shared.posts[indexPath!.row]
             CoreDataManager.shared.deletePost(post: post)
 

@@ -17,6 +17,7 @@ class CoreDataManager {
 
     var posts: [SavedPosts] = []
     private lazy var context = persistentContainer.viewContext
+    private lazy var backgroundContext = persistentContainer.newBackgroundContext()
 
     lazy var persistentContainer: NSPersistentContainer = {
 
@@ -49,19 +50,32 @@ class CoreDataManager {
     }
 
     func getContext() {
+        let fetchRequest = SavedPosts.fetchRequest()
         do {
-            posts = try context.fetch(SavedPosts.fetchRequest())
+            posts = try context.fetch(fetchRequest)
             reloadPosts()
         } catch {
 
         }
     }
 
+    func getPosts(author: String? = nil) -> [SavedPosts] {
+        let fetchRequest = SavedPosts.fetchRequest()
+        if let author {
+        fetchRequest.predicate = NSPredicate(format: "author == %@", author)
+        }
+        do {
+            posts = try context.fetch(fetchRequest)
+        } catch {
+
+        }
+        return posts
+    }
+
     func addPost(post: Post) {
         if isPostUnique(post: post) {
-            persistentContainer.performBackgroundTask { context in
 
-                let newPost = SavedPosts(context: context)
+                let newPost = SavedPosts(context: self.backgroundContext)
                 newPost.author = post.author
                 newPost.postText = post.postText
                 newPost.image = post.image
@@ -69,19 +83,23 @@ class CoreDataManager {
                 newPost.views = Int16(post.views)
 
                 do {
-                    try context.save()
+                    try backgroundContext.save()
                     print("Post added")
                 } catch {
                     print("CoreData error: \(error)")
                 }
-            }
+
         } else {
             print("CoreDataManager | addPost | post isn't unique")
         }
     }
 
-    func getPost(id: Int) {
-
+    func getPost(author: String? = nil) -> [SavedPosts] {
+        let fetchRequest = SavedPosts.fetchRequest()
+        if let author {
+            fetchRequest.predicate = NSPredicate(format: "author contains[c] %@", author)
+        }
+        return (try? persistentContainer.viewContext.fetch(fetchRequest)) ?? []
     }
 
     func deletePost(post: SavedPosts) {

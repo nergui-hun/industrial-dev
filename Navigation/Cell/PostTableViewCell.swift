@@ -17,7 +17,7 @@ final class PostTableViewCell: UITableViewCell {
     var viewModel: PostTableVM? {
         willSet(viewModel) {
             guard let viewModel = viewModel else {
-                print("hi")
+                print("SavedTableViewCell | viewModel | no viewModel")
                 return
             }
             authorLabel.text = viewModel.author
