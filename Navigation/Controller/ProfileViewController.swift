@@ -46,6 +46,7 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Profile"
+        view.backgroundColor = ColorPalette.mainBackgroundColor
         self.navigationController?.navigationBar.isHidden = true
 
         configureTableView()

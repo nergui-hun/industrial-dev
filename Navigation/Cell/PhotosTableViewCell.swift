@@ -23,7 +23,7 @@ final class PhotosTableViewCell: UITableViewCell {
     private let photosLabel: UILabel = {
         let label = UILabel()
         label.text = "Photos"
-        label.textColor = .black
+        label.textColor = ColorPalette.textColor
         label.font = .systemFont(ofSize: 24, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -32,7 +32,7 @@ final class PhotosTableViewCell: UITableViewCell {
     private lazy var photosButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "arrow.right"), for: UIControl.State.normal)
-        button.tintColor = .black
+        button.tintColor = ColorPalette.textColor
         button.titleLabel?.font = .systemFont(ofSize: 24, weight: .bold)
         button.addTarget(self, action: #selector(redirectToGalleryAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -103,6 +103,8 @@ final class PhotosTableViewCell: UITableViewCell {
     }
 
     private func setupView() {
+        backgroundColor = ColorPalette.mainBackgroundColor
+
         let subviews = [photosLabel, photosButton, firstImageView, secondImageView, thirdImageView, fourthImageView]
         subviews.forEach({ addSubview($0)})
         let imageSize = (UIScreen.main.bounds.width - 48) / 4

@@ -23,9 +23,9 @@ final class ProfileHeaderView: UIView {
 
     private let statusLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .lightGray
+        label.backgroundColor = ColorPalette.label
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.textColor = .gray
+        label.textColor = ColorPalette.textColor
         label.text = "Waiting for something..."
         return label
     }()
@@ -33,12 +33,12 @@ final class ProfileHeaderView: UIView {
     private let statusTextField: UITextField = {
         let textField = UITextField()
         textField.frame = CGRect()
-        textField.backgroundColor = .white
+        textField.backgroundColor = ColorPalette.label
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        textField.textColor = .black
+        textField.textColor = ColorPalette.textColor
         textField.layer.cornerRadius = 12
         textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor.black.cgColor
+        textField.layer.borderColor = ColorPalette.border.cgColor
         textField.isHidden = true
         return textField
     }()
@@ -47,7 +47,7 @@ final class ProfileHeaderView: UIView {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "bald")
         imageView.layer.borderWidth = 3
-        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.layer.borderColor = ColorPalette.border.cgColor
         imageView.layer.cornerRadius = avatarImageViewSize / 2
         imageView.contentMode = UIView.ContentMode.scaleAspectFill
         imageView.clipsToBounds = true
@@ -57,7 +57,7 @@ final class ProfileHeaderView: UIView {
     private let fullNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        label.textColor = .black
+        label.textColor = ColorPalette.textColor
         label.text = "Bald Cat"
         label.numberOfLines = 0
         return label
@@ -79,7 +79,7 @@ final class ProfileHeaderView: UIView {
 
     lazy var alphaView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = ColorPalette.mainBackgroundColor
         view.alpha = 0
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -123,6 +123,8 @@ final class ProfileHeaderView: UIView {
     // MARK: - Methods
     
     private func setupView() {
+
+        self.backgroundColor = ColorPalette.mainBackgroundColor
 
         let subviews = [statusLabel, statusTextField, fullNameLabel, setStatusButton, alphaView, avatarImageView]
         subviews.forEach({ self.addSubview($0) })

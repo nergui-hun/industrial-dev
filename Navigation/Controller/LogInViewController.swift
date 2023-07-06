@@ -116,11 +116,11 @@ class LogInViewController: UIViewController {
 
     private func setupTextFields(_ textField: UITextField) {
         textField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-        textField.backgroundColor = .systemGray6
+        textField.backgroundColor = ColorPalette.label
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.layer.borderWidth = 0.5
         textField.layer.cornerRadius = 10
-        textField.textColor = .black
+        textField.textColor = ColorPalette.textColor
         textField.font = .systemFont(ofSize: 16, weight: .regular)
         textField.autocapitalizationType = .none
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -153,7 +153,7 @@ class LogInViewController: UIViewController {
 
     private func setupView() {
         title = "Profile"
-        view.backgroundColor = .white
+        view.backgroundColor = ColorPalette.loginBackgroundColor
         self.navigationController?.navigationBar.isHidden = true
         view.layer.borderColor = UIColor.lightGray.cgColor
         view.layer.borderWidth = 0.5

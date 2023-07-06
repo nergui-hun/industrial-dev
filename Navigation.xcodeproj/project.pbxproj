@@ -19,6 +19,8 @@
 		8D5EA0EF28971C2400709B11 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EA0EE28971C2400709B11 /* LoginCoordinator.swift */; };
 		8D5EA0F328971EAC00709B11 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EA0F228971EAC00709B11 /* CustomButton.swift */; };
 		8D5EA0F52897206900709B11 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5EA0F42897206900709B11 /* LoginVM.swift */; };
+		8D823C7B2A57633E006B78C8 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D823C7A2A57633E006B78C8 /* UIColor+Ext.swift */; };
+		8D823C7D2A576D13006B78C8 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D823C7C2A576D13006B78C8 /* ColorPalette.swift */; };
 		8D8B52E22871646C000ECFB2 /* StorageService.docc in Sources */ = {isa = PBXBuildFile; fileRef = 8D8B52E12871646C000ECFB2 /* StorageService.docc */; };
 		8D8B52E82871646C000ECFB2 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8B52DE2871646C000ECFB2 /* StorageService.framework */; };
 		8D8B52EF2871646C000ECFB2 /* StorageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8B52EE2871646C000ECFB2 /* StorageServiceTests.swift */; };
@@ -88,6 +90,8 @@
 		8D5EA0EE28971C2400709B11 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		8D5EA0F228971EAC00709B11 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		8D5EA0F42897206900709B11 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
+		8D823C7A2A57633E006B78C8 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		8D823C7C2A576D13006B78C8 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
 		8D8B52DE2871646C000ECFB2 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D8B52E02871646C000ECFB2 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		8D8B52E12871646C000ECFB2 /* StorageService.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = StorageService.docc; sourceTree = "<group>"; };
@@ -192,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				8DBE083F28227F210005B573 /* UIView+Ext.swift */,
+				8D823C7A2A57633E006B78C8 /* UIColor+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -245,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				8D5EA0F228971EAC00709B11 /* CustomButton.swift */,
+				8D823C7C2A576D13006B78C8 /* ColorPalette.swift */,
 			);
 			path = CustomElements;
 			sourceTree = "<group>";
@@ -570,6 +576,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D823C7B2A57633E006B78C8 /* UIColor+Ext.swift in Sources */,
+				8D823C7D2A576D13006B78C8 /* ColorPalette.swift in Sources */,
 				8D5EA0EC2896EFE400709B11 /* NavFactory.swift in Sources */,
 				8D5EA0F328971EAC00709B11 /* CustomButton.swift in Sources */,
 				8D35FD71282427310016BE52 /* Photo.swift in Sources */,
