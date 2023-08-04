@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import Navigation
 @testable import StorageService
 
 class StorageServiceTests: XCTestCase {
